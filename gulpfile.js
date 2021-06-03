@@ -35,8 +35,6 @@ gulp.task('scss', function (callback) {
     return gulp.src('./scss/**/*.scss')
         .pipe(scss())
         .pipe(gulp.dest('./scss/'))
-    callback();
-
 });
 gulp.task('server', function () {
     browserSync.init({
@@ -47,7 +45,8 @@ gulp.task('server', function () {
 });
 gulp.task('watch', function () {
     watch('./pug/**/*.pug', gulp.parallel('pug'))
-    watch(['./*.html', './pug/**/*.pug', './css/**/*.css', './js/**/*.js', './pug/**/*.pug/*.html', './scss/**/*.scss'], gulp.parallel(browserSync.reload));
+    watch('./scss/**/*.scss', gulp.parallel('scss'))
+    watch(['./*.html', './pug/**/*.pug', './css/**/*.css', './js/**/*.js', './pug/**/*.pug/*.html', './scss/**/*.scss'], gulp.parallel(browserSync.reload, pug, scss));
 
 })
 
